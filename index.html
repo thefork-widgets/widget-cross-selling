@@ -1,0 +1,87 @@
+<div id= "widgetContainer">
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum vel turpis sit amet accumsan. Phasellus congue elit at mi pulvinar, eget posuere odio ultricies.</p>
+
+  <span><a href="javascript:openURLwidget('/module/UID-WIDGET-HASH_1/pdh')"><img src=" IMAGE PATH REST 1"  alt=""></a></span>
+  <span><a href="javascript:openURLwidget('/module/UID-WIDGET-HASH_2/pdh')"><img src=" IMAGE PATH REST 2 " alt=""></a></span>
+  
+</div>
+
+
+  <script type="text/javascript">
+
+  var widgetHash = window.location.hash;
+  var widgetUrl = window.location.href;
+  var dataBooking = "";
+
+
+  function openURLwidget(originalHash){
+
+    $(document).ready(function(){
+      if(widgetUrl.search( 'customer' )==-1){
+        widgetHash = window.location.hash;
+        widgetUrl = window.location.href;
+        dataBooking = widgetHash.split("pdh", 2);
+        console.log("var dataBooking: " + dataBooking[1]);
+        console.log("var widgetHash: " + widgetHash);
+        console.log("var widgetUrl: " + widgetUrl);
+      }
+    });
+    
+    if(widgetUrl.search( 'es_ES' )!=-1){
+      var lang= "es_ES";
+    }else{
+        var lang= "en_GB";
+    }
+    
+      URLwidget = "https://module.lafourchette.com/"+ lang + originalHash;
+      console.log("URLwidget + dataBooking: " + URLwidget+dataBooking[1]);
+      window.open(URLwidget+dataBooking[1], "_self");
+    }
+
+</script>
+
+
+<script type="text/javascript">
+
+window.onload= Resize;
+window.onresize=Resize;
+
+function Resize(){
+  if(window.innerWidth > 590){
+     var test= document.getElementById("widgetContainer");
+     test.style.width= 540+"px";
+     console.log(test.style.width);
+     var marlft = (window.innerWidth-540)/2;
+     console.log("Margin-left before"+ test.style.marginLeft);
+     console.log("Margin-left after"+marlft);
+     test.style.marginLeft =  marlft+"px";
+     console.log(test.style.marginLeft);
+     
+  }else{
+    var test= document.getElementById("widgetContainer");
+    test.style.width= 90+"%";
+    test.style.marginLeft = 15+"px";
+  };
+}
+
+</script>
+
+<style type="text/css">
+
+#widgetContainer p{
+padding-bottom: 20px;
+font-weight: bold;
+text-align: justify;
+}
+
+#widgetContainer img{
+width: 30%;
+margin-left: 15%;
+}
+#widgetContainer p.imgCenter{
+text-align: center;
+}
+
+</style>
+
