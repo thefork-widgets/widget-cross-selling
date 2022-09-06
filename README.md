@@ -3,4 +3,4 @@ Spanish and English Cross Selling
 
 Example:
 
-https://module.lafourchette.com/en_GB/module/264041-64a2d#/1641547/pdh
+https://module.lafourchette.com/en_GB/module/671297-253f0#/4274495/pdh
