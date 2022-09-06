@@ -1,4 +1,5 @@
-# widgetCrosselling
+# widget-cross-selling
+
 Spanish and English Cross Selling 
 
 Example:
