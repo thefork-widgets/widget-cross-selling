@@ -1,88 +1,190 @@
 <!--------------------------------------------------->
-<!--        UID: uid                               -->
-<!--        HASH: number after uid                 -->
-<!--        IMAGE PATH: url where the pict is      -->
+<!--        WIDGET CROS-SELLING                    -->
+<!--        place a dropdown below the widget      -->
+<!--        Example working on TukTuk group        -->
 <!--------------------------------------------------->
-<div id= "widgetContainer">
-  <p>RESTAURNANT INFO TEXT: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum vel turpis sit amet accumsan. Phasellus congue elit at mi pulvinar, eget posuere odio ultricies.</p>
 
-  <span><a href="javascript:openURLwidget('/module/UID-WIDGET-HASH_1/pdh')"><img src=" IMAGE PATH REST 1"  alt=""></a></span>
-  <span><a href="javascript:openURLwidget('/module/UID-WIDGET-HASH_2/pdh')"><img src=" IMAGE PATH REST 2 " alt=""></a></span>
+<!-- Controla el dropdown -->
+<script type="text/javascript">
+$(document).ready(function() {
+
+  //Botón de acción del acordeón
+  $('.dropdownButton').click(function() {
+
+    //Elimina la clase on de todos los botones
+    $('.dropdownButton').removeClass('on');
+
+    //Plegamos todo el contenido que esta abierto
+    $('.dropdownContent').slideUp('slow');
+
+    //Si el siguiente slide no esta abierto lo abrimos
+    if($(this).next().is(':hidden') == true) {
+
+      //Añade la clase on en el botón
+      $(this).addClass('on');
+
+      //Abre el slide
+      $(this).next().slideDown('slow');
+     }
+
+   });
+
+  // Cerramos todo el contenido al cargar la página
+  $('.dropdownContent').hide();
+
+});
+</script>
+<!-- /Controla el dropdown -->
+
+
+<div id= "widgetContainer">
+  <p>Si el restaurante está completo haz tu reserva en otro de nuestros locales:</p>
+  <div class="dropdownMenu">
+    <div class="title dropdownButton">
+        <!-- dropdown image -->
+        <p style="text-align: center;margin:auto;"><img src="http://www.tuktukstreetfood.es/img/logo-2020.png"></p>
+    </div>
+    <div class="dropdownContent">
+        <!-- Format /module/671293-81c1c#/4274475/pdh to keep the selected day in cros-selling -->
+        <ul>
+          <li><a href="javascript:openURLwidget('/module/671293-81c1c#/4274475/pdh')">Alcalá</a></li>
+          <li><a href="javascript:openURLwidget('/module/672891-bc060#/4285453/pdh')">Barajas</a></li>
+          <li><a href="javascript:openURLwidget('/module/671287-73662#/4274429/pdh')">Barquillo</a></li>
+          <li><a href="javascript:openURLwidget('/module/671303-4d47b#/4274523/pdh')">Cisneros</a></li>
+          <li><a href="javascript:openURLwidget('/module/671305-f98ce#/4274531/pdh')">Parque Sur</a></li>
+          <li><a href="javascript:openURLwidget('/module/671297-253f0#/4274495/pdh')">Perón</a></li>
+          <li><a href="javascript:openURLwidget('/module/672885-17228#/4285425/pdh')">Pozuelo</a></li>
+        </ul>
+    </div>
+  </div>
 </div>
 
+<!-- Cros-selling scripts -->
 <script type="text/javascript">
 
-  var widgetHash = window.location.hash;
-  var widgetUrl = window.location.href;
-  var dataBooking = "";
+    var dataBooking = "";
 
-  function openURLwidget(originalHash){
+    function openURLwidget(originalHash){
 
-    $(document).ready(function(){
-      if(widgetUrl.search( 'customer' )==-1){
-        widgetHash = window.location.hash;
-        widgetUrl = window.location.href;
-        dataBooking = widgetHash.split("pdh", 2);
-        console.log("var dataBooking: " + dataBooking[1]);
-        console.log("var widgetHash: " + widgetHash);
-        console.log("var widgetUrl: " + widgetUrl);
-      }
-    });
-    
-    if(widgetUrl.search( 'es_ES' )!=-1){
-      var lang= "es_ES";
+        $(document).ready(function(){
+          if(window.location.href.search( 'customer' )==-1){
+            dataBooking = window.location.hash.split("pdh", 2);
+            console.log("var dataBooking: " + dataBooking[1]);
+          }
+        });
+
+        if(window.location.href.search( 'es_ES' )!=-1){
+            var lang= "es_ES";
+        }else{
+            var lang= "en_GB";
+        }
+
+        URLwidget = "https://module.lafourchette.com/"+ lang + originalHash;
+        console.log("URLwidget + dataBooking: " + URLwidget+dataBooking[1]);
+        window.open(URLwidget+dataBooking[1], "_self");
+
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    if(window.location.href.search( 'customer' )==-1 && window.location.href.search( 'payment' )==-1){
+        console.log("widgetContainer");
+        $('#widgetContainer').show();
     }else{
-        var lang= "en_GB";
-    }
-    
-      URLwidget = "https://module.lafourchette.com/"+ lang + originalHash;
-      console.log("URLwidget + dataBooking: " + URLwidget+dataBooking[1]);
-      window.open(URLwidget+dataBooking[1], "_self");
+        $('#widgetContainer').hide();
     }
 
 </script>
+<!--/ Cros-selling scripts -->
 
 
-<script type="text/javascript">
-
-window.onload= Resize;
-window.onresize=Resize;
-
-function Resize(){
-  if(window.innerWidth > 590){
-     var test= document.getElementById("widgetContainer");
-     test.style.width= 540+"px";
-     console.log(test.style.width);
-     var marlft = (window.innerWidth-540)/2;
-     console.log("Margin-left before"+ test.style.marginLeft);
-     console.log("Margin-left after"+marlft);
-     test.style.marginLeft =  marlft+"px";
-     console.log(test.style.marginLeft);
-     
-  }else{
-    var test= document.getElementById("widgetContainer");
-    test.style.width= 90+"%";
-    test.style.marginLeft = 15+"px";
-  };
-}
-
-</script>
-
+<!-- dropdown styles -->
 <style type="text/css">
 
+#widgetContainer{
+  margin-bottom: 20px;
+  overflow: visible;
+  text-align: justify; 
+  min-width: 320px; 
+  max-width: 520px; 
+  padding-bottom: 10px; margin: 0 auto; 
+
+}
+
 #widgetContainer p{
-padding-bottom: 20px;
+/*padding-bottom: 20px;*/
 font-weight: bold;
 text-align: justify;
 }
 
-#widgetContainer img{
+.dropdownButton img{
+
 width: 30%;
-margin-left: 15%;
+/*margin-left: 30%;*/
+}
+.dropdownContent img{
+margin-right: 10px;
+/*width: 15%;*/
+/*margin-left: 30%;*/
 }
 #widgetContainer p.imgCenter{
 text-align: center;
 }
 
-</style>
+body{
+  font-family: Arial, Verdana;
+}
+.dropdownMenu{
+  width: 100%;
+  margin-bottom: 3px;
+}
+.title{
+  padding: 7px 10px;
+  background-color: none;
+  color: white;
+  margin-bottom: 0;
+}
+.title:hover{
+  background-color: #F8F8F8;
+    color:#589442;
+}
+.dropdownButton:hover{
+  cursor: pointer;
+}
+.dropdownButton > p .fa{
+  float: right;
+}
+.dropdownContent ul{
+  margin: 0;
+  padding: 0 10px;
+}
+.dropdownContent,
+.dropdownButton{
+  border: 1px solid black;
+}
+.dropdownContent{
+  padding: 15px 8px;
+  background-color: #fff;
+  margin-top: -1px;
+}
+.dropdownContent ul li{
+  list-style: none;
+  padding: 5px 0;
+    text-transform: uppercase;
+    text-align: justify;
+    text-indent: 25px;
+    height: 25px;
+}
+.dropdownContent ul li a{
+  text-decoration: none;
+    font-weight: bold;
+    color: black;
 
+}
+.dropdownContent ul li a:hover{
+  color: grey;
+}
+</style>
+<!-- /dropdown styles -->
